@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>sample</groupId>
+        <artifactId>app</artifactId>
+        <version>DEVELOP-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>publisher</artifactId>
+
+    <properties>
+        <main.verticle>sample.PubVertical</main.verticle>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>sample</groupId>
+            <artifactId>common</artifactId>
+            <version>DEVELOP-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <!-- plugin to create a `fat-jar` -->
+                <artifactId>maven-shade-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <!-- copy the cluster configuration -->
+                <artifactId>maven-dependency-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <imageName>sample-publisher</imageName>
+                    <baseImage>java</baseImage>
+                    <workdir>code</workdir>
+                    <entryPoint>["bash", "./start.sh", "${project.build.finalName}-fat.jar"]</entryPoint>
+                    <resources>
+                        <resource>
+                            <targetPath>/code/target</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}-fat.jar</include>
+                        </resource>
+                        <resource>
+                            <targetPath>/code</targetPath>
+                            <directory>${project.basedir}/src/main/scripts</directory>
+                            <include>start.sh</include>
+                        </resource>
+                    </resources>
+                    <forceTags>true</forceTags>
+                    <imageTags>
+                        <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

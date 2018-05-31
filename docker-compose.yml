@@ -1,0 +1,6 @@
+version: '2'
+services:
+  consumer:
+    image: sample-consumer:latest
+  published:
+    image: sample-publisher:latest

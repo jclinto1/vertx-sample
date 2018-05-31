@@ -1,0 +1,7 @@
+mvn clean install
+docker-compose up
+
+When parent pom is on 3.4.1 you will see sysout of sending and received output.
+When parent pom is on 3.5.1 you will see an expcetion after sending.
+
+A message is sent every second.
