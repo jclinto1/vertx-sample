@@ -17,19 +17,17 @@
   <packaging>pom</packaging>
 
   <properties>
-    <!-- Works as 3.4.1 -->
-    <stack.version>3.4.1</stack.version>
-
-    <!-- Failed as 3.5.1 -->
-    <!--<stack.version>3.5.1</stack.version>-->
+    <stack.version>3.5.3</stack.version>
     
     <main.verticle/>
   </properties>
 
   <modules>
+    <module>web</module>
     <module>common</module>
     <module>publisher</module>
     <module>consumer</module>
+    <module>eventbus</module>
   </modules>
 
   <dependencyManagement>
@@ -186,7 +184,7 @@
                 <goal>unpack-dependencies</goal>
               </goals>
               <configuration>
-                <includeArtifactIds>vertx-workshop-common</includeArtifactIds>
+                <includeArtifactIds>common</includeArtifactIds>
                 <outputDirectory>${project.build.directory}/classes</outputDirectory>
                 <includes>**/cluster.xml</includes>
               </configuration>
@@ -208,7 +206,7 @@
                 <transformers>
                   <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                     <manifestEntries>
-                      <Main-Class>io.siegefx.vertx.common.Launcher</Main-Class>
+                      <Main-Class>sample.common.Launcher</Main-Class>
                       <Main-Verticle>${main.verticle}</Main-Verticle>
                     </manifestEntries>
                   </transformer>

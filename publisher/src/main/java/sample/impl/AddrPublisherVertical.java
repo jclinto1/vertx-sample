@@ -1,9 +1,9 @@
-package sample;
+package sample.impl;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.JsonObject;
 
-public class PubVertical extends AbstractVerticle {
+public class AddrPublisherVertical extends AbstractVerticle {
     @Override
     public void start() {
         vertx.setPeriodic(1000, l -> {

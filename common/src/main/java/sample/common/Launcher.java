@@ -1,4 +1,4 @@
-package io.siegefx.vertx.common;
+package sample.common;
 
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.VertxOptions;
@@ -17,8 +17,7 @@ public class Launcher extends io.vertx.core.Launcher {
 
     @Override
     public void beforeStartingVertx(VertxOptions options) {
-        options.setClustered(true)
-                .setClusterHost("127.0.0.1");
+        options.setClustered(true);
     }
 
     @Override

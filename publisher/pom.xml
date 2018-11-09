@@ -13,7 +13,7 @@
     <artifactId>publisher</artifactId>
 
     <properties>
-        <main.verticle>sample.PubVertical</main.verticle>
+        <main.verticle>sample.impl.PubVertical</main.verticle>
     </properties>
 
     <dependencies>
